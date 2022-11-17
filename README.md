@@ -33,5 +33,6 @@ Zoals je ziet werkt echter niet optimaal. Ondanks dat de scores erg hoog zijn.
 - je kunt zelf experimenteren met zinnetje om te kijken of je aanpassingen werken
 - je kunt kijken welke documenten verkeerd worden beoordeeld? Herken je iets aan deze documente?
 
-
+# je hebt 45 minuten
+dan komt er een zin, wie die zin het beste kan classificeren wint.
 
