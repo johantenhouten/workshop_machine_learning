@@ -44,7 +44,7 @@ if print_hints:
 
 
 # Transform the documents (words) into vectors (number)
-my_stop_words = frozenset(["word1", "word2","word3"])
+my_stop_words = frozenset(["the", "any","some"])
 vectorizer = TfidfVectorizer(stop_words=my_stop_words)
 
 # let the vectorizer know what words to expect and use in the model
@@ -64,20 +64,40 @@ testing_vectors = vectorizer.transform(testing_data)
 
 
 # use a naive bayes model
-#classifier = MultinomialNB() 
+classifier = MultinomialNB() 
 classifier = RandomForestClassifier(n_estimators=200)
 
 
 # train the model using the vectorized training corpus
 if print_hints:
     print("Beginning to train the model")
+
 classifier.fit(training_vectors,training_targets )
+
 if print_hints:
     print("Finished training the model")
 
 
 # now see if the 30% we kept aside work for the model.
 predicted_results = classifier.predict(testing_vectors)
+
+if print_hints:
+    print()
+    print()
+    print("The message:")
+    print("-----------------------------------------------------------------------------------")
+    print(testing_data[0])
+    print("-----------------------------------------------------------------------------------")
+    print("The message is predicted to belong to ",predicted_results[0])
+    print("The message should belong to ",testing_targets[0])
+    if testing_targets[0] == predicted_results[0]:
+        print("This is correctly predicted.")
+    else:
+        print("This is not correctly predicted.")
+    print()
+    print()
+        
+
 # we know the classification from testing_targets and will compare these to the predcited values
 if print_hints:
     print("Accuracy:",metrics.accuracy_score(testing_targets, predicted_results))
@@ -102,6 +122,7 @@ print("The model predicts that the sentence belongs to class ", classifier.predi
 print("The scores (percentages) per class are", classifier.predict_proba(experiment_vector))
 print()
 
+
 sentence = "Does the new Honda have a sound system?."
 print("The sentence for experimenting is :",sentence )
 experiment_vector = vectorizer.transform([sentence])
@@ -109,13 +130,6 @@ print("The model predicts that the sentence belongs to class ", classifier.predi
 print("The scores (percentages) per class are", classifier.predict_proba(experiment_vector))
 print()
 
-
-sentence = "The door of my CD-drive is stuck."
-print("The sentence for experimenting is :",sentence )
-experiment_vector = vectorizer.transform([sentence])
-print("The model predicts that the sentence belongs to class ", classifier.predict(experiment_vector))
-print("The scores (percentages) per class are", classifier.predict_proba(experiment_vector))
-print()
 
 
 
